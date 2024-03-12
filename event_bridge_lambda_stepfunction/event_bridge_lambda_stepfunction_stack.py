@@ -122,7 +122,12 @@ class EventBridgeLambdaStepfunctionStack(Stack):
         #     )
         # )
 
-        # create a event to trigger the state machine when a file is uploaded to s3
+        # # create a eventbridge pipe
+        eventbridge_pipe = events.EventBus(self, "EventBridgePipe",
+            event_bus_name="sran-eventbridge-pipe",
+        )
+
+        # # create a event to trigger the state machine when a file is uploaded to s3
         event_rule = events.Rule(self, "EventsRule",
             event_pattern=events.EventPattern(
                 source=["aws.s3"],
